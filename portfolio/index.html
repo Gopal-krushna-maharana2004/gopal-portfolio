@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gopal Krushna Maharana | Backend Developer</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+    /* Remove scrollbar */
+    body::-webkit-scrollbar{display:none}
+    body{-ms-overflow-style:none;scrollbar-width:none}
+    html{overflow-x:hidden}
+
+    body{
+      background:#020617;
+      color:#fff;
+      overflow-x:hidden;
+      transition:0.4s ease;
+    }
+
+    body.light{background:#f5f7fb;color:#020617}
+
+    /* Animated Background Elements */
+    .bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+    .floating-shape{position:absolute;border-radius:50%;opacity:0.1;animation:float 8s ease-in-out infinite}
+    .shape1{width:400px;height:400px;background:linear-gradient(45deg,#00e5ff,#6366f1);top:10%;left:5%;animation:float 15s ease-in-out infinite}
+    .shape2{width:300px;height:300px;background:linear-gradient(45deg,#6366f1,#00e5ff);top:60%;right:10%;animation:float 20s ease-in-out infinite}
+    .shape3{width:250px;height:250px;background:linear-gradient(45deg,#00e5ff,#6366f1);top:40%;left:50%;animation:float 18s ease-in-out infinite}
+    
+    @keyframes float{0%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(50px,50px) rotate(180deg)}100%{transform:translate(0,0) rotate(360deg)}}
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideInUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+    @keyframes glow{0%{box-shadow:0 0 10px rgba(0,229,255,0.3)}50%{box-shadow:0 0 30px rgba(99,102,241,0.6)}100%{box-shadow:0 0 10px rgba(0,229,255,0.3)}}
+
+    .toggle{
+      position:fixed;top:20px;right:20px;z-index:1000;cursor:pointer;
+      background:linear-gradient(45deg,#00e5ff,#6366f1);
+      padding:10px 18px;border-radius:30px;font-size:14px;font-weight:600;color:#fff;
+      animation:pulse 2s ease-in-out infinite;transition:0.3s
+    }
+    .toggle:hover{transform:scale(1.1)}
+
+    header{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 8%;position:relative;overflow:hidden}
+
+    .hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:60px;align-items:center;width:100%;animation:fadeInDown 1s ease-out}
+
+    .hero-text h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;line-height:1.1;animation:slideInUp 0.8s ease-out}
+
+    .gradient{background:linear-gradient(45deg,#00e5ff,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+    .hero-text p{margin-top:20px;font-size:1.2rem;opacity:0.9;animation:slideInUp 1s ease-out 0.2s backwards}
+
+    .btn{margin-top:35px;display:inline-block;padding:14px 34px;border-radius:40px;background:linear-gradient(90deg,#00e5ff,#6366f1);color:#fff;text-decoration:none;font-weight:600;position:relative;overflow:hidden;animation:slideInUp 1s ease-out 0.4s backwards;transition:0.3s}
+    .btn:hover{transform:scale(1.05)}
+
+    .btn::after{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,0.5),transparent);transition:0.6s}
+    .btn:hover::after{left:100%}
+
+    .profile-wrapper{perspective:1000px;display:flex;justify-content:center;animation:fadeInDown 1.2s ease-out}
+
+    .profile{width:260px;height:260px;border-radius:50%;background:linear-gradient(45deg,#00e5ff,#6366f1);padding:6px;transition:transform 0.15s ease-out,box-shadow 0.3s ease;animation:glow 3s ease-in-out infinite}
+    .profile:hover{box-shadow:0 0 40px rgba(0,229,255,0.8)}
+
+    .profile img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+
+    section{padding:100px 8%;position:relative}
+
+    section::before{content:"";position:absolute;top:0;left:50%;width:2px;height:60px;background:linear-gradient(to bottom,transparent,#00e5ff);animation:slideInUp 1.5s ease-out}
+
+    section h2{text-align:center;font-size:clamp(2rem,4vw,2.8rem);margin-bottom:60px;animation:slideInUp 0.8s ease-out}
+
+    .card{background:rgba(255,255,255,0.08);padding:30px;border-radius:24px;backdrop-filter:blur(14px);transition:0.4s;animation:slideInUp 0.8s ease-out}
+    body.light .card{background:#ffffff}
+    .card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,229,255,0.2)}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
+
+    .skills .skill-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .skills .skill-tags span{display:inline-block;margin:0;padding:8px 14px;border-radius:30px;background:linear-gradient(45deg,#00e5ff,#6366f1);font-size:0.95rem}
+
+    /* Skill bars */
+    .skill-bars{margin-top:20px;display:grid;gap:12px}
+    .skill{display:flex;flex-direction:column;gap:6px}
+    .skill-name{font-size:0.95rem;font-weight:600}
+    .bar{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:999px;overflow:hidden}
+    .bar-fill{height:100%;width:0;background:linear-gradient(90deg,#00e5ff,#6366f1);border-radius:999px;transition:width 1.6s cubic-bezier(.2,.9,.2,1)}
+
+    /* Social fixed */
+    .social-fixed{position:fixed;left:18px;top:40%;display:flex;flex-direction:column;gap:12px;z-index:1000}
+    .social-fixed a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.04);color:#fff;text-decoration:none;transition:transform .2s,background .2s}
+    .social-fixed a:hover{transform:translateX(6px);background:linear-gradient(45deg,#00e5ff,#6366f1);color:#020617}
+
+    /* Back-to-top */
+    .back-to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:linear-gradient(45deg,#00e5ff,#6366f1);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:18px;z-index:1000;box-shadow:0 8px 24px rgba(99,102,241,0.18)}
+
+    /* Project card hover tilt */
+    .card{transform-style:preserve-3d}
+
+    .contact p{margin:10px 0;font-size:1rem}
+    .contact i{margin-right:10px;color:#38bdf8}
+
+    footer{text-align:center;padding:40px 8%;background:rgba(0,0,0,0.4);font-size:0.9rem}
+
+    /* Navigation styles */
+    .main-nav{position:fixed;top:0;left:0;width:100%;z-index:1100;backdrop-filter:blur(6px);background:rgba(2,6,23,0.35);animation:slideInUp 0.6s ease-out}
+    .main-nav .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 6%}
+    .nav-left{display:flex;align-items:center;gap:12px}
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .nav-links{display:flex;gap:18px;list-style:none}
+    .nav-links a{color:inherit;text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px;transition:background .2s}
+    .nav-links a:hover{background:rgba(255,255,255,0.04)}
+    .nav-toggle{display:none;background:transparent;border:none;color:inherit;font-size:20px;cursor:pointer}
+    .mode-toggle{margin-left:12px;padding:8px 12px;border-radius:20px;background:linear-gradient(45deg,#00e5ff,#6366f1);color:#fff;border:none;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center}
+
+    /* Mobile social FAB and sheet */
+    .social-fab{position:fixed;left:18px;bottom:22px;width:48px;height:48px;border-radius:50%;background:linear-gradient(45deg,#00e5ff,#6366f1);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:18px;z-index:1001;box-shadow:0 8px 24px rgba(99,102,241,0.18)}
+    .social-sheet{position:fixed;left:16px;bottom:86px;background:rgba(2,6,23,0.9);padding:12px;border-radius:12px;display:none;flex-direction:column;gap:8px;z-index:1002}
+    .social-sheet a{color:#fff;text-decoration:none;padding:8px 10px;border-radius:8px;display:flex;gap:8px;align-items:center}
+    .social-sheet.open{display:flex}
+    .social-close{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer}
+
+    /* Responsive adjustments */
+    @media(max-width:900px){
+      .nav-inner{padding:10px 5%}
+      .nav-links{gap:12px}
+    }
+    @media(max-width:700px){
+      .social-fixed{display:none}
+      .social-fab{display:flex}
+      .nav-links{display:none}
+      .nav-toggle{display:block}
+      header{padding:60px 6%}
+      section{padding:80px 6%}
+      .profile{width:220px;height:220px}
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-animation">
+  <div class="floating-shape shape1"></div>
+  <div class="floating-shape shape2"></div>
+  <div class="floating-shape shape3"></div>
+</div>
+
+<!-- Animated header / navigation -->
+<nav class="main-nav" id="mainNav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a  class="logo gradient">GKM</a>
+    </div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="mode-toggle" onclick="toggleMode()" title="Toggle theme">🌗</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Social links fixed left + Back-to-top button -->
+<div class="social-fixed" id="socialFixed">
+  <a href="https://github.com/Gopal-krushna-maharana2004" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+  <a href="https://linkedin.com/in/gopal-krushna-maharana-7871442a0" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+  <a href="mailto:mgopalkrushna4@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+  <a href="https://wa.me/916370173996?text=Hi Gopal !  Your portfolio impresses, Wishing you great success in AI career." target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+</div>
+
+<!-- Mobile social FAB (appears on small screens) -->
+<button id="socialFab" class="social-fab" aria-label="Open social menu">❤</button>
+  <div id="socialSheet" class="social-sheet" aria-hidden="true">
+  <a href="https://github.com/Gopal-krushna-maharana2004" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+  <a href="https://linkedin.com/in/gopal-krushna-maharana-7871442a0" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+  <a href="mailto:mgopalkrushna4@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+  <a href="https://wa.me/916370173996?text= Hi Gopal !  Your portfolio impresses, Wishing you great success in AI career." target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+  <button id="socialClose" class="social-close">Close</button>
+</div>
+
+<button id="backToTop" class="back-to-top" title="Back to top">↑</button>
+
+<header id="home">
+  <div class="hero">
+    <div class="hero-text">
+      <h1 class="gradient">Hi, I'm <span id="typed-name"></span></h1>
+      <p><span id="typed-role"></span></p>
+      <a href="resume.pdf" class="btn" download>Download Resume</a>
+    </div>
+
+    <div class="profile-wrapper">
+      <div class="profile" id="profile">
+        <!-- Replace `my dp.jpeg` with a high-resolution image (e.g. my-dp@2x.jpeg) for better clarity -->
+        <img src="my dp.jpeg" srcset="my-dp@2x.jpeg 2x" alt="Gopal Krushna Maharana" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <h2 class="gradient">Professional Summary</h2>
+  <div class="card">
+    Entry-level Backend Developer with strong hands-on experience in Python, FastAPI, Django, and MongoDB, and a solid foundation in backend architecture, RESTful API development, and database design. Skilled in building scalable and maintainable server-side applications, integrating APIs, and optimizing data flow between systems. Experienced in data visualization using Power BI and Tableau, and familiar with modern AI workflows including prompt engineering, AI response evaluation, and automation using n8n. Passionate about continuous learning, clean code practices, and contributing to real-world software solutions that deliver measurable impact.
+  </div>
+</section>
+
+<section id="skills">
+  <h2 class="gradient">Technical Skills</h2>
+  <div class="card skills">
+    <div class="skill-tags">
+      <span>Python</span><span>Java</span><span>C++</span>
+      <span>FastAPI</span><span>Django</span>
+      <span>MongoDB</span><span>MySQL</span><span>Oracle</span>
+      <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Bootstrap 5</span>
+      <span>REST APIs</span><span>Postman</span><span>Git</span><span>GitHub</span>
+      <span>Power BI</span><span>Tableau</span>
+      <span>Prompt Engineering</span><span>AI Response Evaluation</span><span>n8n</span>
+      <span>Data Structures & Algorithms</span><span>Basic System Design</span>
+    </div>
+
+    <div class="skill-bars">
+      <div class="skill">
+        <div class="skill-name">Python</div>
+        <div class="bar"><div class="bar-fill" data-fill="95%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">FastAPI</div>
+        <div class="bar"><div class="bar-fill" data-fill="90%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">Django</div>
+        <div class="bar"><div class="bar-fill" data-fill="85%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">MongoDB</div>
+        <div class="bar"><div class="bar-fill" data-fill="82%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">JavaScript</div>
+        <div class="bar"><div class="bar-fill" data-fill="78%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2 class="gradient">Projects</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Bro Code – Online Coding Platform</h3><br><hr><br>
+      <p>An online learning platform for programmers featuring user authentication, course content, and coding practice modules. Built with FastAPI and Django, focusing on scalable backend APIs and MongoDB integration.</p>
+    </div>
+    <div class="card">
+      <h3>Attendance Management System</h3><br><hr><br>
+      <p>A web-based system to automate attendance tracking with secure data storage, role-based access, and real-time record management using FastAPI and MongoDB.</p>
+    </div>
+    <div class="card">
+      <h3>Hospital Management System Desktop Application</h3><br><hr><br>
+      <p>A desktop-based application developed using Python (Tkinter) and MySQL to manage patient records, doctor information, billing, and appointment scheduling.</p>
+    </div>
+    <div class="card">
+      <h3>AI-Automated Inventory Management System</h3><br><hr><br>
+      <p>An intelligent inventory system that tracks stock levels, predicts demand, and automates alerts using Node.js, MongoDB, and modern web technologies.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="gradient">Contact & Address</h2>
+  <div class="card contact">
+    <p><i class="fa-solid fa-user"></i>Gopal Krushna Maharana</p>
+    <p><i class="fa-solid fa-location-dot"></i>Bhubaneswar, Odisha, India</p>
+    <p><i class="fa-solid fa-phone"></i>+91 6370173996</p>
+    <p><i class="fa-solid fa-envelope"></i>mgopalkrushna4@gmail.com</p>
+    <p><i class="fa-brands fa-github"></i>github.com/Gopal-krushna-maharana2004</p>
+    <p><i class="fa-brands fa-linkedin"></i>linkedin.com/in/gopal-krushna-maharana-7871442a0</p>
+  </div>
+</section>
+
+<footer>© 2026 Gopal Krushna Maharana | <br> # Developer</footer>
+
+<script>
+  new Typed('#typed-name',{strings:['Gopal Krushna Maharana'],typeSpeed:60});
+  new Typed('#typed-role',{strings:['Backend Developer','Python Developer','MongoDB Specialist','AI Engineer'],typeSpeed:50,backSpeed:30,loop:true});
+
+  const profile=document.getElementById('profile');
+  document.addEventListener('mousemove',e=>{
+    const x=(window.innerWidth/2-e.pageX)/25;
+    const y=(window.innerHeight/2-e.pageY)/25;
+    profile.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+  });
+
+  function toggleMode(){document.body.classList.toggle('light')}
+
+  gsap.from('.hero-text',{x:-80,opacity:0,duration:1});
+  gsap.from('.profile',{scale:0,rotation:360,duration:1.2});
+
+  // Back to top button
+  const backToTop=document.getElementById('backToTop');
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY>320) backToTop.style.display='flex'; else backToTop.style.display='none';
+    revealSkillBars();
+  });
+  backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+  // Animate skill bars when in view
+  function revealSkillBars(){
+    document.querySelectorAll('.bar-fill').forEach(el=>{
+      const rect=el.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 80){
+        el.style.width = el.getAttribute('data-fill');
+      }
+    })
+  }
+  // Initial check
+  setTimeout(revealSkillBars,400);
+
+  // Card tilt interaction for project cards
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const rect=card.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width/2) / 16;
+      const y = (e.clientY - rect.top - rect.height/2) / 16;
+      card.style.transform = `translateZ(0) rotateY(${x}deg) rotateX(${ -y }deg)`;
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform='translateZ(0) rotateY(0deg) rotateX(0deg)'});
+  });
+
+  // Nav toggle (mobile)
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links');
+  navToggle && navToggle.addEventListener('click', ()=>{ navLinks.classList.toggle('open'); navLinks.style.display = navLinks.classList.contains('open') ? 'flex' : 'none'; });
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const href = a.getAttribute('href');
+      if(href && href.startsWith('#')){
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+        if(window.innerWidth<=700 && navLinks){navLinks.classList.remove('open');navLinks.style.display='none'}
+      }
+    })
+  });
+
+  // Social FAB toggle for mobile
+  const socialFab = document.getElementById('socialFab');
+  const socialSheet = document.getElementById('socialSheet');
+  const socialClose = document.getElementById('socialClose');
+  socialFab && socialFab.addEventListener('click', ()=>{ socialSheet.classList.toggle('open'); socialSheet.setAttribute('aria-hidden', socialSheet.classList.contains('open') ? 'false' : 'true'); });
+  socialClose && socialClose.addEventListener('click', ()=>{ socialSheet.classList.remove('open'); socialSheet.setAttribute('aria-hidden','true'); });
+
+</script>
+
+</body>
+</html>
